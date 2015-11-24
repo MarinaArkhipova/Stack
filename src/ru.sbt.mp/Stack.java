@@ -9,11 +9,7 @@ public class Stack {
 
     }
 
-    public static void main() {
-        Stack stack = new Stack();
-        stack.a = 2;
-        System.out.println(stack.a);
-    }
+
 
 }
 
