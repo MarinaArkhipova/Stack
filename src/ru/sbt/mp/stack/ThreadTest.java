@@ -1,11 +1,10 @@
-package ru.sbt.mp.daria;
-
+package ru.sbt.mp.stack;
 
 /**
- * Created by daria on 08.12.15
+ * Created by stack on 08.12.15
  */
 public class ThreadTest {
-    private final static IStack<Integer> syncronizedStack = new SyncronizedStack<>();
+    final static IStack<Integer> syncronizedStack = new SynchronizedStack<>();
 
     static Runnable r1 = new Runnable() {
         public void run() {

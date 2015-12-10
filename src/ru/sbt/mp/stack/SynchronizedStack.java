@@ -1,14 +1,14 @@
-package ru.sbt.mp.daria;
+package ru.sbt.mp.stack;
 
 import java.util.ArrayList;
 
 /**
- * Created by daria on 06.12.15
+ * Created by stack on 06.12.15
  */
-public class SyncronizedStack<E> implements IStack<E> {
+public class SynchronizedStack<E> implements IStack<E> {
     private final ArrayList<E> arrayList;
 
-    public SyncronizedStack() {
+    public SynchronizedStack() {
         this.arrayList = new ArrayList<>();
     }
 
@@ -22,7 +22,6 @@ public class SyncronizedStack<E> implements IStack<E> {
         if (isEmpty()){
             throw new IllegalStateException();
         }
-
         return arrayList.remove(arrayList.size() - 1);
     }
 
