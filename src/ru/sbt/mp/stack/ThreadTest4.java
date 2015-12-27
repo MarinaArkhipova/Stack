@@ -1,10 +1,10 @@
 package ru.sbt.mp.stack;
 
 /**
- * Created by marina on 10.12.15.
+ * Created by km on 27.12.15.
  */
-public class ThreadTest2 {
-    final static IStack<Integer> syncronizedStack = new SynchronizedStackSyncData<>();
+public class ThreadTest4 {
+    final static IStack<Integer> syncronizedStack = new SynchronizedStackUnifiedLock<>();
 
     static final int iterations = 100000;
 

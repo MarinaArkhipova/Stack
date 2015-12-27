@@ -7,7 +7,7 @@ package ru.sbt.mp.stack;
 public interface IStack<E> {
     public void push(E element) throws IllegalStateException;
 
-    public E pop() throws IllegalStateException;
+    public E pop() throws IllegalStateException, InterruptedException;
 
     public boolean isEmpty();
 }

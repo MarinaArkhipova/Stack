@@ -5,10 +5,10 @@ import java.util.ArrayList;
 /**
  * Created by stack on 06.12.15
  */
-public class SynchronizedStack<E> implements IStack<E> {
+public class SynchronizedStackSyncMethods<E> implements IStack<E> {
     private final ArrayList<E> arrayList;
 
-    public SynchronizedStack() {
+    public SynchronizedStackSyncMethods() {
         this.arrayList = new ArrayList<>();
     }
 

@@ -4,7 +4,7 @@ package ru.sbt.mp.stack;
  * Created by stack on 08.12.15
  */
 public class ThreadTest {
-    final static IStack<Integer> syncronizedStack = new SynchronizedStack<>();
+    final static IStack<Integer> syncronizedStack = new SynchronizedStackSyncMethods<>();
 
     static Runnable r1 = new Runnable() {
         public void run() {
