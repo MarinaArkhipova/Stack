@@ -1,7 +1,7 @@
-package ru.sbt.mp.stack;
+package ru.sbt.mp.stack.implementations;
 
 /**
- * Created by stack on 08.12.15
+ * Created by daria on 08.12.15
  */
 
 public interface IStack<E> {

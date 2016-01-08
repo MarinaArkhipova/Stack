@@ -1,10 +1,13 @@
-package ru.sbt.mp.stack;
+package ru.sbt.mp.stack.tests;
+
+import ru.sbt.mp.stack.implementations.IStack;
+import ru.sbt.mp.stack.implementations.SynchronizedStackSyncMethods;
 
 /**
- * Created by km on 27.12.15.
+ * Created by marina on 10.12.15.
  */
-public class ThreadTest4 {
-    final static IStack<Integer> syncronizedStack = new SynchronizedStackUnifiedLock<>();
+public class ThreadTest2 {
+    final static IStack<Integer> syncronizedStack = new SynchronizedStackSyncMethods.SynchronizedStackSyncData<>();
 
     static final int iterations = 100000;
 

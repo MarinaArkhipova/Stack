@@ -1,4 +1,4 @@
-package ru.sbt.mp.stack;
+package ru.sbt.mp.stack.implementations;
 
 import java.util.ArrayList;
 

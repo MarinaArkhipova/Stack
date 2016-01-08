@@ -1,7 +1,10 @@
-package ru.sbt.mp.stack;
+package ru.sbt.mp.stack.tests;
+
+import ru.sbt.mp.stack.implementations.IStack;
+import ru.sbt.mp.stack.implementations.SynchronizedStackSyncMethods;
 
 /**
- * Created by stack on 08.12.15
+ * Created by daria on 08.12.15
  */
 public class ThreadTest {
     final static IStack<Integer> syncronizedStack = new SynchronizedStackSyncMethods<>();

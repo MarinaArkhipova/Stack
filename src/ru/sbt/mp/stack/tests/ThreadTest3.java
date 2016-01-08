@@ -1,4 +1,7 @@
-package ru.sbt.mp.stack;
+package ru.sbt.mp.stack.tests;
+
+import ru.sbt.mp.stack.implementations.IStack;
+import ru.sbt.mp.stack.implementations.SynchronizedStackSyncObject;
 
 /**
  * Created by km on 27.12.15.

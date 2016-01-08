@@ -1,42 +1,46 @@
-package ru.sbt.mp.stack;
+package ru.sbt.mp.stack.implementations;
+
+import ru.sbt.mp.stack.implementations.IStack;
 
 import java.util.ArrayList;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
-
 /**
  * Created by km on 27.12.15.
  */
-public class SynchronizedStackSyncObject<E> implements IStack<E> {
+public class SynchronizedStackUnifiedLock<E> implements IStack<E> {
+
     private final ArrayList<E> data;
 
-    public final static Object obj = new Object();
+    private Lock lock;
 
-    public SynchronizedStackSyncObject() {
+    public SynchronizedStackUnifiedLock() {
         this.data = new ArrayList<>();
+        lock = new ReentrantLock();
     }
 
     @Override
     public void push(E element) throws IllegalStateException {
-        synchronized (obj) {
-            data.add(element);
-        }
+        lock.lock();
+        data.add(element);
+        lock.unlock();
     }
 
     @Override
-    public E pop() throws IllegalStateException, InterruptedException {
+    public E pop() throws IllegalStateException {
+        lock.lock();
         E element;
-        synchronized (obj) {
-            element = data.get(data.size() - 1);
-            data.remove(data.size() - 1);
+        if (isEmpty()){
+            throw new IllegalStateException();
         }
+        else element = data.remove(data.size() - 1);
+        lock.unlock();
         return element;
     }
 
     @Override
     public boolean isEmpty() {
-        Lock lock = new ReentrantLock();
         lock.lock();
         Boolean isEmpty = data.isEmpty();
         lock.unlock();
