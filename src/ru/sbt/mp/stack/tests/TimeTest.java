@@ -6,6 +6,7 @@ import ru.sbt.mp.stack.implementations.IStack;
 
 import java.util.Random;
 import java.util.concurrent.ExecutorService;
+import java.util.function.Function;
 
 import static java.lang.Long.MAX_VALUE;
 import static java.util.concurrent.Executors.newFixedThreadPool;
@@ -21,7 +22,7 @@ public class TimeTest {
 
     private final int THREAD_POOL_SIZE = 10;
     private final long NUMBER_OF_ITERATIONS = 100000;
-    private final long REPETITION_NUMBER = 10;
+    private final long REPETITION_NUMBER = 5;
 
 
     @Before
@@ -30,47 +31,84 @@ public class TimeTest {
     }
 
     @Test
-    public void testStack() {
-        for (IStack implementation : factory.getAllImplementations()) {
-            measureTime(implementation);
+    public void testStackPushAndPopOperations() {
+        System.out.println("\nTesting Push and Pop operations");
+        for (IStack implementation : factory.getImplementations()) {
+            measureTime(implementation, testPushAndPopOperations);
         }
     }
 
-    public void measureTime(IStack implementation) {
-        long startTime = System.nanoTime();
+    @Test
+    public void testStackPushOperations() {
+        System.out.println("\nTesting Push operation");
+        for (IStack implementation : factory.getImplementations()) {
+            measureTime(implementation, testPushOperation);
+        }
+    }
 
+    public Function<IStack, Integer> testPushAndPopOperations = implementation -> {
         try {
-            for (int i = 0; i < REPETITION_NUMBER; i++) {
-                performCalculations(implementation);
-            }
+            performPushAndPop(implementation);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+        return 0;
+    };
 
-        long endTime = System.nanoTime();
+    public Function<IStack, Integer> testPushOperation = implementation -> {
+        try {
+            performPush(implementation);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return 0;
+    };
 
-        System.out.println(implementation.getShortName() + ": " +  (endTime - startTime)/REPETITION_NUMBER);
+    public void measureTime(IStack implementation, Function<IStack, Integer> function) {
+        long totalTime = 0;
+        double operationsPerSecTime = 0;
+        for (int i = 0; i < REPETITION_NUMBER; i++) {
+            long startTime = System.nanoTime();
+            function.apply(implementation);
+            long endTime = System.nanoTime();
+            totalTime += (endTime - startTime);
+            operationsPerSecTime += 1.0*THREAD_POOL_SIZE*NUMBER_OF_ITERATIONS/(endTime - startTime);
+        }
+        System.out.println(implementation.getShortName() + " total time: " + totalTime/REPETITION_NUMBER);
+        System.out.println(implementation.getShortName() + " operations in ns: " +  String.format("%.4f", operationsPerSecTime/REPETITION_NUMBER));
     }
 
-    public void performCalculations(IStack implementation) throws InterruptedException {
+    public void performPushAndPop(IStack implementation) throws InterruptedException {
 
-        for (int i = 0; i < THREAD_POOL_SIZE; i++) {
-            executors = newFixedThreadPool(THREAD_POOL_SIZE);
-            executors.execute(() -> {
-                for (int j = 0; j < NUMBER_OF_ITERATIONS; j++) {
-                    Random rand = new Random();
-                    int number = rand.nextInt(100);
+        executors = newFixedThreadPool(THREAD_POOL_SIZE);
+        executors.execute(() -> {
+            for (int j = 0; j < NUMBER_OF_ITERATIONS; j++) {
+                Random rand = new Random();
+                int number = rand.nextInt(100);
 
-                    implementation.push(number);
-                    try {
-                        implementation.pop();
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
+                implementation.push(number);
+                try {
+                    implementation.pop();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
                 }
-            });
-            executors.shutdown();
-            executors.awaitTermination(MAX_VALUE, DAYS);
-        }
+            }
+        });
+        executors.shutdown();
+        executors.awaitTermination(MAX_VALUE, DAYS);
+    }
+
+    public void performPush(IStack implementation) throws InterruptedException {
+
+        executors = newFixedThreadPool(THREAD_POOL_SIZE);
+        executors.execute(() -> {
+            for (int j = 0; j < NUMBER_OF_ITERATIONS; j++) {
+                Random rand = new Random();
+                int number = rand.nextInt(100);
+                implementation.push(number);
+            }
+        });
+        executors.shutdown();
+        executors.awaitTermination(MAX_VALUE, DAYS);
     }
 }
