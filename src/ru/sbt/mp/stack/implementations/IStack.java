@@ -10,4 +10,10 @@ public interface IStack<E> {
     public E pop() throws IllegalStateException, InterruptedException;
 
     public boolean isEmpty();
+
+    public default String getShortName() {
+        String fullName = getClass().toString();
+        String shortName = fullName.substring(fullName.lastIndexOf('.')+1);
+        return shortName;
+    }
 }
