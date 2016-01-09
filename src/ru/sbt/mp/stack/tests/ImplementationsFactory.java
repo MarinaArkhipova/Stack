@@ -11,7 +11,6 @@ public class ImplementationsFactory {
 
     ArrayList<IStack> implementations = new ArrayList();
 
-
     public ArrayList<IStack> getAllImplementations() {
         implementations.add(new SynchronizedStackSyncData<>());
         implementations.add(new SynchronizedStackSyncMethods<>());
