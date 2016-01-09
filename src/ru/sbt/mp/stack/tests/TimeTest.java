@@ -85,7 +85,6 @@ public class TimeTest {
             for (int j = 0; j < NUMBER_OF_ITERATIONS; j++) {
                 Random rand = new Random();
                 int number = rand.nextInt(100);
-
                 implementation.push(number);
                 try {
                     implementation.pop();
