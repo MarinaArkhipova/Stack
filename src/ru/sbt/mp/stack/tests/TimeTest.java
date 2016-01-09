@@ -4,6 +4,7 @@ import org.junit.Before;
 import org.junit.Test;
 import ru.sbt.mp.stack.implementations.IStack;
 
+import java.io.*;
 import java.util.Random;
 import java.util.concurrent.ExecutorService;
 import java.util.function.Function;
@@ -24,6 +25,18 @@ public class TimeTest {
     private final long NUMBER_OF_ITERATIONS = 100000;
     private final long REPETITION_NUMBER = 5;
 
+    private PrintWriter printWriter;
+
+    public TimeTest() throws IOException {
+        String outputName = "report.txt";
+        printWriter = new PrintWriter(new FileWriter(outputName, true), true);
+    }
+
+    @Override
+    protected void finalize() throws Throwable {
+        printWriter.close();
+        super.finalize();
+    }
 
     @Before
     public void prepare() {
@@ -32,7 +45,7 @@ public class TimeTest {
 
     @Test
     public void testStackPushAndPopOperations() {
-        System.out.println("\nTesting Push and Pop operations");
+        printWriter.println("\nTesting Push and Pop operations");
         for (IStack implementation : factory.getImplementations()) {
             measureTime(implementation, testPushAndPopOperations);
         }
@@ -40,7 +53,7 @@ public class TimeTest {
 
     @Test
     public void testStackPushOperations() {
-        System.out.println("\nTesting Push operation");
+        printWriter.println("\nTesting Push operation");
         for (IStack implementation : factory.getImplementations()) {
             measureTime(implementation, testPushOperation);
         }
@@ -74,8 +87,8 @@ public class TimeTest {
             totalTime += (endTime - startTime);
             operationsPerSecTime += 1.0*THREAD_POOL_SIZE*NUMBER_OF_ITERATIONS/(endTime - startTime);
         }
-        System.out.println(implementation.getShortName() + " total time: " + totalTime/REPETITION_NUMBER);
-        System.out.println(implementation.getShortName() + " operations in ns: " +  String.format("%.4f", operationsPerSecTime/REPETITION_NUMBER));
+        printWriter.println(implementation.getShortName() + " total time: " + totalTime/REPETITION_NUMBER);
+        printWriter.println(implementation.getShortName() + " operations in ns: " +  String.format("%.4f", operationsPerSecTime/REPETITION_NUMBER));
     }
 
     public void performPushAndPop(IStack implementation) throws InterruptedException {
@@ -111,3 +124,4 @@ public class TimeTest {
         executors.awaitTermination(MAX_VALUE, DAYS);
     }
 }
+
