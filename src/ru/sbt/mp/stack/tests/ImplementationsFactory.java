@@ -1,8 +1,8 @@
 package ru.sbt.mp.stack.tests;
 
 import ru.sbt.mp.stack.implementations.*;
+
 import java.util.ArrayList;
-import java.util.Stack;
 
 /**
  * Created by km on 07.01.16.
@@ -14,7 +14,7 @@ public class ImplementationsFactory {
     private  SynchronizedStackSyncMethods syncMethodsImpl = new SynchronizedStackSyncMethods();
     private  SynchronizedStackSyncObject syncObjectImpl = new SynchronizedStackSyncObject();
     private  SynchronizedStackUnifiedLock unifiedLockImpl = new SynchronizedStackUnifiedLock();
-    private  StandardStack standardImpl = new StandardStack(new Stack());
+    private  StandardStack standardImpl = new StandardStack();
 
     public ArrayList<IStack> getImplementations() {
         implementations.add(syncDataIml);
