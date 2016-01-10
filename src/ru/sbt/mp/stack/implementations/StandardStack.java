@@ -7,11 +7,7 @@ import java.util.Stack;
  */
 public class StandardStack<E> implements IStack {
 
-    private Stack standardStack;
-
-    public StandardStack(Stack stack) {
-        this.standardStack = stack;
-    }
+    private Stack standardStack = new Stack();
 
     @Override
     public void push(Object element) throws IllegalStateException {
