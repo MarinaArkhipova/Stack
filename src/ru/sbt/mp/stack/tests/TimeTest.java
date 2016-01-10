@@ -101,7 +101,7 @@ public class TimeTest {
                 public void run() {
 
                     long threadId = Thread.currentThread().getId()%THREAD_POOL_SIZE +1;
-                    System.out.println("Thread # " + threadId + " is doing this task");
+//                    System.out.println("Thread # " + threadId + " is doing this task");
                     Random rand = new Random();
                     int number = rand.nextInt(100);
                     implementation.push(number);
