@@ -94,18 +94,28 @@ public class TimeTest {
     public void performPushAndPop(IStack implementation) throws InterruptedException {
 
         executors = newFixedThreadPool(THREAD_POOL_SIZE);
-        executors.execute(() -> {
-            for (int j = 0; j < NUMBER_OF_ITERATIONS; j++) {
-                Random rand = new Random();
-                int number = rand.nextInt(100);
-                implementation.push(number);
-                try {
-                    implementation.pop();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
+
+        for (int j = 0; j < NUMBER_OF_ITERATIONS; j++) {
+            executors.execute(new Runnable() {
+                @Override
+                public void run() {
+
+                    long threadId = Thread.currentThread().getId()%THREAD_POOL_SIZE +1;
+                    System.out.println("Thread # " + threadId + " is doing this task");
+                    Random rand = new Random();
+                    int number = rand.nextInt(100);
+                    implementation.push(number);
+                    try {
+                        implementation.pop();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+
                 }
-            }
-        });
+            });
+
+        }
+
         executors.shutdown();
         executors.awaitTermination(MAX_VALUE, DAYS);
     }
