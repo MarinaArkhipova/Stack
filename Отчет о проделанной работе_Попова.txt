@@ -1,0 +1,32 @@
+В рамках проекта было сделано реализации конкуррентного стека четырьмя способами:
+три с помощью syncronized и один с помощью блокировок.
+Было реализовано четыре класса:
+1)SynchronizedStackSyncData
+2)SynchronizedStackSyncMethods
+3)SynchronizedStackSyncObject
+4)SynchronizedStackUnifiedLock
+
+При измерении времени выполнения(latency) и количества операций в единицу времени(throughput) были получены следующие результаты:
+Testing Push and Pop operations
+SynchronizedStackSyncData total time: 101337739
+SynchronizedStackSyncData operations in ns: 0,0117
+SynchronizedStackSyncMethods total time: 72765548
+SynchronizedStackSyncMethods operations in ns: 0,0140
+SynchronizedStackSyncObject total time: 65019642
+SynchronizedStackSyncObject operations in ns: 0,0154
+SynchronizedStackUnifiedLock total time: 131809476
+SynchronizedStackUnifiedLock operations in ns: 0,0079
+StandardStack total time: 177266256
+StandardStack operations in ns: 0,0059
+
+Testing Push operation
+SynchronizedStackSyncData total time: 97583910
+SynchronizedStackSyncData operations in ns: 0,0114
+SynchronizedStackSyncMethods total time: 149650794
+SynchronizedStackSyncMethods operations in ns: 0,0071
+SynchronizedStackSyncObject total time: 122975972
+SynchronizedStackSyncObject operations in ns: 0,0086
+SynchronizedStackUnifiedLock total time: 80015147
+SynchronizedStackUnifiedLock operations in ns: 0,0128
+StandardStack total time: 100405228
+StandardStack operations in ns: 0,0108
